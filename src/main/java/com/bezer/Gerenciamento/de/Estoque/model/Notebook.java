@@ -16,7 +16,7 @@ public class Notebook {
     @Column(nullable = false, length = 30)
     private String processador;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, unique = true)
     private String tagPatrimonio;
 
     @Column(nullable = false, length = 30)
