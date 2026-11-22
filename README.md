@@ -15,12 +15,12 @@
 ## Funcionalidades
 - [x] Estrutura inicial do projeto Spring Boot
 - [x] Entidade Notebook mapeada com JPA
+- [x] Enum de status (DISPONIVEL, EMPRESTADO, MANUTENCAO, DEFEITO)
+- [x] Repositório (NotebookRepository)
+- [x] Regras de negócio: cadastro, empréstimo, devolução e alteração de status
 - [ ] Configuração do banco de dados
-- [ ] Repositório (NotebookRepository)
-- [ ] Regras de negócio (camada service)
 - [ ] Endpoints REST (camada controller)
-- [ ] Cadastro, listagem, atualização e remoção de equipamentos
-- [ ] Controle de status (ex.: em estoque, em uso, em manutenção)
+- [ ] Atualização e remoção de equipamentos
 - [ ] Testes automatizados
 - [ ] Documentação da API (Swagger/OpenAPI)
 
@@ -29,12 +29,16 @@
 ```
 src/main/java/com/bezer/Gerenciamento/de/Estoque/
 ├── GerenciamentoDeEstoqueApplication.java   # Classe principal
-└── model/
-    └── Notebook.java                         # Entidade JPA
+├── model/
+│   ├── Notebook.java                         # Entidade JPA
+│   └── StatusNotebook.java                   # Enum de status
+├── repository/
+│   └── NotebookRepository.java               # Acesso ao banco
+└── service/
+    └── NotebookService.java                  # Regras de negócio
 ```
 
-Pastas previstas para as próximas etapas: `repository/`, `service/` e `controller/`.
-
+Próxima etapa prevista: `controller/`.
 ## Autor
 
 **André Ribeiro**

@@ -1,6 +1,7 @@
 package com.bezer.Gerenciamento.de.Estoque.repository;
 
 import com.bezer.Gerenciamento.de.Estoque.model.Notebook;
+import com.bezer.Gerenciamento.de.Estoque.model.StatusNotebook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ public interface NotebookRepository extends JpaRepository<Notebook, Long> {
      * Busca todos os notebooks com o status informado.
      * Retorna lista vazia se não houver nenhum.
      */
-    List<Notebook> findByStatus(String status);
+    List<Notebook> findByStatus(StatusNotebook status);
 
     /**
      * Verifica se já existe um notebook com essa tag de patrimônio.

@@ -19,13 +19,14 @@ public class Notebook {
     @Column(nullable = false, length = 30, unique = true)
     private String tagPatrimonio;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
-    private String status;
+    private StatusNotebook status;
 
     public Notebook() {
     }
 
-    public Notebook(Long id, String marca, String processador, String tagPatrimonio, String status) {
+    public Notebook(Long id, String marca, String processador, String tagPatrimonio, StatusNotebook status) {
         this.id = id;
         this.marca = marca;
         this.processador = processador;
@@ -65,11 +66,11 @@ public class Notebook {
         this.tagPatrimonio = tagPatrimonio;
     }
 
-    public String getStatus() {
+    public StatusNotebook getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusNotebook status) {
         this.status = status;
     }
 }
