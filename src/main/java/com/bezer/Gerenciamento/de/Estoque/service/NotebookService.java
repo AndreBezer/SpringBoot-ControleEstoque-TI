@@ -75,4 +75,15 @@ public class NotebookService {
         return notebookRepository.save(notebook);
     }
 
+    @Transactional
+    public void deletar(Long id){
+        Notebook notebook = ListarPorId(id); // lança exceção se o id não existir
+
+        if (notebook.getStatus() == StatusNotebook.EMPRESTADO){
+            throw new RuntimeException("Não é possível excluir um notebook emprestado.");
+        }
+
+        notebookRepository.delete(notebook);
+    }
+
 }

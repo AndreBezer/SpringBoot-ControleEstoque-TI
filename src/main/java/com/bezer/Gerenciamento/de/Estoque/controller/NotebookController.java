@@ -3,10 +3,7 @@ package com.bezer.Gerenciamento.de.Estoque.controller;
 import com.bezer.Gerenciamento.de.Estoque.model.Notebook;
 import com.bezer.Gerenciamento.de.Estoque.service.NotebookService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,17 @@ public class NotebookController {
     public ResponseEntity<Notebook> buscarPorId(@PathVariable Long id){
         Notebook notebook = notebookService.ListarPorId(id);
         return ResponseEntity.ok(notebook);
+    }
+
+    @PostMapping
+    public ResponseEntity<Notebook> salvar(@RequestBody Notebook notebook){
+        Notebook notebookSalvo = notebookService.salvar(notebook);
+        return ResponseEntity.ok(notebookSalvo);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        notebookService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
