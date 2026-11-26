@@ -1,7 +1,9 @@
 package com.bezer.Gerenciamento.de.Estoque.controller;
 
 import com.bezer.Gerenciamento.de.Estoque.model.Notebook;
+import com.bezer.Gerenciamento.de.Estoque.model.StatusNotebook;
 import com.bezer.Gerenciamento.de.Estoque.service.NotebookService;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +31,16 @@ public class NotebookController {
         return ResponseEntity.ok(notebook);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Notebook> salvar(@RequestBody Notebook notebook){
         Notebook notebookSalvo = notebookService.salvar(notebook);
         return ResponseEntity.ok(notebookSalvo);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Notebook> atualizarStatus(@PathVariable Long id, @RequestBody StatusNotebook statusNotebook){
+        Notebook notebookAtualizado = notebookService.alterarStatus(id, statusNotebook);
+        return ResponseEntity.ok(notebookAtualizado);
     }
 
     @DeleteMapping("/{id}")
