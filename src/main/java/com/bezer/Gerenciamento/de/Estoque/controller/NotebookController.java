@@ -1,5 +1,6 @@
 package com.bezer.Gerenciamento.de.Estoque.controller;
 
+import com.bezer.Gerenciamento.de.Estoque.dto.AtualizarStatusRequest;
 import com.bezer.Gerenciamento.de.Estoque.model.Notebook;
 import com.bezer.Gerenciamento.de.Estoque.model.StatusNotebook;
 import com.bezer.Gerenciamento.de.Estoque.service.NotebookService;
@@ -38,8 +39,8 @@ public class NotebookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Notebook> atualizarStatus(@PathVariable Long id, @RequestBody StatusNotebook statusNotebook){
-        Notebook notebookAtualizado = notebookService.alterarStatus(id, statusNotebook);
+    public ResponseEntity<Notebook> atualizarStatus(@PathVariable Long id, @RequestBody AtualizarStatusRequest request){
+        Notebook notebookAtualizado = notebookService.alterarStatus(id, request.status());
         return ResponseEntity.ok(notebookAtualizado);
     }
 
