@@ -1,4 +1,3 @@
 package com.bezer.Gerenciamento.de.Estoque.dto;
 
-public class AtualizarEspecificacoesRequest {
-}
+public record AtualizarEspecificacoesRequest(String apelidoComputador, Integer memRam, Integer memRom) {}

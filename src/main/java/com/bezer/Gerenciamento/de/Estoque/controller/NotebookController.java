@@ -1,10 +1,9 @@
 package com.bezer.Gerenciamento.de.Estoque.controller;
 
+import com.bezer.Gerenciamento.de.Estoque.dto.AtualizarEspecificacoesRequest;
 import com.bezer.Gerenciamento.de.Estoque.dto.AtualizarStatusRequest;
 import com.bezer.Gerenciamento.de.Estoque.model.Notebook;
-import com.bezer.Gerenciamento.de.Estoque.model.StatusNotebook;
 import com.bezer.Gerenciamento.de.Estoque.service.NotebookService;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +31,22 @@ public class NotebookController {
         return ResponseEntity.ok(notebook);
     }
 
+    @GetMapping("/apelido/{apelido}")
+    public ResponseEntity<Notebook> buscarPorApelido(@PathVariable String apelido){
+        Notebook notebook = notebookService.ListarPorApelido(apelido);
+        return ResponseEntity.ok(notebook);
+    }
+
+    @GetMapping("/ram/{gb}")
+    public ResponseEntity<List<Notebook>> buscarPorMemRam(@PathVariable Integer gb){
+        return ResponseEntity.ok(notebookService.ListarPorMemRam(gb));
+    }
+
+    @GetMapping("/rom/{gb}")
+    public ResponseEntity<List<Notebook>> buscarPorMemRom(@PathVariable Integer gb){
+        return ResponseEntity.ok(notebookService.ListarPorMemRom(gb));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Notebook> salvar(@RequestBody Notebook notebook){
         Notebook notebookSalvo = notebookService.salvar(notebook);
@@ -41,6 +56,12 @@ public class NotebookController {
     @PutMapping("/{id}")
     public ResponseEntity<Notebook> atualizarStatus(@PathVariable Long id, @RequestBody AtualizarStatusRequest request){
         Notebook notebookAtualizado = notebookService.alterarStatus(id, request.status());
+        return ResponseEntity.ok(notebookAtualizado);
+    }
+
+    @PutMapping("/{id}/especificacoes")
+    public ResponseEntity<Notebook> atualizarEspecificacoes(@PathVariable Long id, @RequestBody AtualizarEspecificacoesRequest request){
+        Notebook notebookAtualizado = notebookService.atualizarEspecificacoes(id, request.apelidoComputador(), request.memRam(), request.memRom());
         return ResponseEntity.ok(notebookAtualizado);
     }
 

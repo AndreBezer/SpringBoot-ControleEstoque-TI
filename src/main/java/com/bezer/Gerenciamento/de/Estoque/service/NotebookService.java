@@ -33,11 +33,25 @@ public class NotebookService {
         return notebookRepository.findByTagPatrimonio(tagPatrimonio).orElseThrow(() -> new RuntimeException("Notebook com a Tag de Patrimonio " + tagPatrimonio + " não foi encontrado!"));
     }
 
+    public Notebook ListarPorApelido(String apelidoComputador){
+        return notebookRepository.findByApelidoComputador(apelidoComputador).orElseThrow(() -> new RuntimeException("Notebook com o apelido " + apelidoComputador + " não foi encontrado!"));
+    }
+
+    public List<Notebook> ListarPorMemRam(Integer memRam){
+        return notebookRepository.findByMemRam(memRam);
+    }
+
+    public List<Notebook> ListarPorMemRom(Integer memRom){
+        return notebookRepository.findByMemRom(memRom);
+    }
+
     public Notebook salvar(Notebook notebook){
 
         if (notebookRepository.existsByTagPatrimonio(notebook.getTagPatrimonio())){
             throw new RuntimeException(("Ja existe um Notebook com essa Tag de Patrimonio"));
         }
+
+        validarEspecificacoes(notebook.getApelidoComputador(), notebook.getMemRam(), notebook.getMemRom(), null);
 
         notebook.setStatus(StatusNotebook.DISPONIVEL);
 
@@ -73,6 +87,39 @@ public class NotebookService {
         Notebook notebook = ListarPorId(id);
         notebook.setStatus(novoStatus);
         return notebookRepository.save(notebook);
+    }
+
+    @Transactional
+    public Notebook atualizarEspecificacoes(Long id, String apelidoComputador, Integer memRam, Integer memRom){
+        Notebook notebook = ListarPorId(id);
+
+        validarEspecificacoes(apelidoComputador, memRam, memRom, id);
+
+        notebook.setApelidoComputador(apelidoComputador);
+        notebook.setMemRam(memRam);
+        notebook.setMemRom(memRom);
+        return notebookRepository.save(notebook);
+    }
+
+    // Valida apelido, RAM e ROM. idAtual é o id do notebook sendo editado (null no cadastro).
+    private void validarEspecificacoes(String apelidoComputador, Integer memRam, Integer memRom, Long idAtual){
+        if (apelidoComputador == null || apelidoComputador.isBlank()){
+            throw new RuntimeException("O apelido do computador é obrigatório.");
+        }
+
+        if (memRam == null || memRam <= 0){
+            throw new RuntimeException("A memória RAM (em GB) deve ser maior que zero.");
+        }
+
+        if (memRom == null || memRom <= 0){
+            throw new RuntimeException("A memória ROM (em GB) deve ser maior que zero.");
+        }
+
+        notebookRepository.findByApelidoComputador(apelidoComputador).ifPresent(existente -> {
+            if (!existente.getId().equals(idAtual)){
+                throw new RuntimeException("Já existe um Notebook com o apelido " + apelidoComputador);
+            }
+        });
     }
 
     @Transactional
