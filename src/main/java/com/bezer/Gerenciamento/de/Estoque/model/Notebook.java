@@ -19,6 +19,17 @@ public class Notebook {
     @Column(nullable = false, length = 30, unique = true)
     private String tagPatrimonio;
 
+    @Column(name = "apelido_computador", length = 50, unique = true)
+    private String apelidoComputador;
+
+    // Memória RAM em GB (ex.: 16)
+    @Column(name = "mem_ram")
+    private Integer memRam;
+
+    // Armazenamento (ROM) em GB (ex.: 512)
+    @Column(name = "mem_rom")
+    private Integer memRom;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private StatusNotebook status;
@@ -26,11 +37,15 @@ public class Notebook {
     public Notebook() {
     }
 
-    public Notebook(Long id, String marca, String processador, String tagPatrimonio, StatusNotebook status) {
+    public Notebook(Long id, String marca, String processador, String tagPatrimonio,
+                    String apelidoComputador, Integer memRam, Integer memRom, StatusNotebook status) {
         this.id = id;
         this.marca = marca;
         this.processador = processador;
         this.tagPatrimonio = tagPatrimonio;
+        this.apelidoComputador = apelidoComputador;
+        this.memRam = memRam;
+        this.memRom = memRom;
         this.status = status;
     }
 
@@ -64,6 +79,30 @@ public class Notebook {
 
     public void setTagPatrimonio(String tagPatrimonio) {
         this.tagPatrimonio = tagPatrimonio;
+    }
+
+    public String getApelidoComputador() {
+        return apelidoComputador;
+    }
+
+    public void setApelidoComputador(String apelidoComputador) {
+        this.apelidoComputador = apelidoComputador;
+    }
+
+    public Integer getMemRam() {
+        return memRam;
+    }
+
+    public void setMemRam(Integer memRam) {
+        this.memRam = memRam;
+    }
+
+    public Integer getMemRom() {
+        return memRom;
+    }
+
+    public void setMemRom(Integer memRom) {
+        this.memRom = memRom;
     }
 
     public StatusNotebook getStatus() {

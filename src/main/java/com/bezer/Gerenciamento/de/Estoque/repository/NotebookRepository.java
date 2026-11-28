@@ -32,4 +32,28 @@ public interface NotebookRepository extends JpaRepository<Notebook, Long> {
      * Retorna Optional vazio se não encontrar.
      */
     Optional<Notebook> findByTagPatrimonio(String tagPatrimonio);
+
+    /**
+     * Busca um notebook pelo apelido do computador.
+     * Retorna Optional vazio se não encontrar.
+     */
+    Optional<Notebook> findByApelidoComputador(String apelidoComputador);
+
+    /**
+     * Verifica se já existe um notebook com esse apelido.
+     * Retorna true se existir e false se estiver livre.
+     */
+    boolean existsByApelidoComputador(String apelidoComputador);
+
+    /**
+     * Busca todos os notebooks com a quantidade de memória RAM (GB) informada.
+     * Retorna lista vazia se não houver nenhum.
+     */
+    List<Notebook> findByMemRam(Integer memRam);
+
+    /**
+     * Busca todos os notebooks com o armazenamento (GB) informado.
+     * Retorna lista vazia se não houver nenhum.
+     */
+    List<Notebook> findByMemRom(Integer memRom);
 }
