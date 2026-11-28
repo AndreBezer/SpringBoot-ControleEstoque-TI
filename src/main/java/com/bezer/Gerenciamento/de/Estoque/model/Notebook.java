@@ -34,19 +34,23 @@ public class Notebook {
     @Column(nullable = false, length = 30)
     private StatusNotebook status;
 
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id") // fica nulo enquanto o item está em estoque
+    private Funcionario funcionario;
+
     public Notebook() {
     }
 
-    public Notebook(Long id, String marca, String processador, String tagPatrimonio,
-                    String apelidoComputador, Integer memRam, Integer memRom, StatusNotebook status) {
-        this.id = id;
+    public Notebook(String marca, Long id, String processador, String tagPatrimonio, String apelidoComputador, Integer memRam, Integer memRom, StatusNotebook status, Funcionario funcionario) {
         this.marca = marca;
+        this.id = id;
         this.processador = processador;
         this.tagPatrimonio = tagPatrimonio;
         this.apelidoComputador = apelidoComputador;
         this.memRam = memRam;
         this.memRom = memRom;
         this.status = status;
+        this.funcionario = funcionario;
     }
 
     public Long getId() {
@@ -111,5 +115,13 @@ public class Notebook {
 
     public void setStatus(StatusNotebook status) {
         this.status = status;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 }
